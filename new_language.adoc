@@ -84,3 +84,18 @@ Create testing infrastructure in https://github.com/kaitai-io/kaitai_struct_test
 == Port spec for HelloWorld
 
 Port spec for HelloWorld test to new target language and make it work with manually compiled `hello_world.ksy`.
+
+As explained in [developers_intro.adoc], when developing support for a new language you can either inherit from ClassCompiler (which assumes you are building an object-oriented class structure) or AbstractCompiler (where nearly all implementations details are left up to you).
+
+=== New language support built on ClassCompiler
+
+When implementing your new langauge you will need to create at least two new files,
+
+1. kaitai_struct_compiler\shared\src\main\scala\io\kaitai\struct\{YourLang}ClassCompiler.scala
+2. kaitai_struct_compiler\shared\src\main\scala\io\kaitai\struct\languages\{YourLang}Compiler.scala
+
+**{YourLang}ClassCompiler.scala** dictates the high-level function calls that print your code with the `CompileClass` method.
+
+**{YourLang}Compiler.scala** contains functions that generate the header and function definition files - these functions are specific to your language.
+
+Note that **{YourLang}ClassCompiler.scala** typically calls methods that are defined in `ConstructClassCompiler.scala`.  The methods defined in `ConstructClassCompiler.scala` then reference `lang.method()` and these methods are defined as override methods in **{YourLang}Compiler.scala**.
