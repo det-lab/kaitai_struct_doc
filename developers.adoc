@@ -84,6 +84,32 @@ automatically. It shouldn't really matter even which version of sbt
 you use for bootstrap, as sbt will pull relevant sbt update packages
 automatically as well.
 
+=== Quick Start (does it compile?)
+
+0. Make changes to KSC if necessary
+
+1. Build kaitai-struct-compiler
+	
+	- cd <path/to/kaitai_struct_compiler>
+
+	- sbt compilerJVM/debian:packageBin
+
+2. Install the built package
+
+	- cd kaitai_struct_compiler/jvm/target 
+
+	- sudo dpkg -i kaitai-struct-compiler_0.9-SNAPSHOT_all.deb
+
+	or
+
+	- sudo dpkg -i <path/to/kaitai_struct_compiler/jvm/target/kaitai-struct-compiler_0.9-SNAPSHOT_all.deb>
+
+4. Generate code!
+
+	- cd <path/to/your/project>
+
+	- kaitai-struct-compiler -t <target_language> --outdir <output/dir> <path/to/ksy/file>
+
 === Configuring proxy
 
 Note, that if you behind proxy, you need to run `sbt` with flags
